@@ -28,9 +28,17 @@ export function addValue(value) {
     chart.update();
 }
 
+export function addRandomValue() {
+    input.push(19);
+    chart.update();
+    console.log("add random value...");
+}
+
 onMount(createChart);
 afterUpdate(() => {
     chart.update();
 });
 
 </script>
+
+<button on:click={addRandomValue}>Add random value to chart</button>
