@@ -4,6 +4,7 @@
 import {onMount, afterUpdate} from 'svelte';
 
 export let input = [];
+let latestValue;
 export let labels = [1,2];
 let chart;
 
@@ -27,14 +28,12 @@ export function addRandomValue() {
     input.push(Math.random()*100);
     labels.push(labels.length + 1);
     chart.update();
-    //console.log(input);
 }
 
 export function addValue(value) {
     input.push(value);
     labels.push(labels.length + 1);
-    chart.update();
-    //console.log(input);
+    latestValue = value;
 }
 
 onMount(createChart);
@@ -45,3 +44,9 @@ afterUpdate(() => {
 </script>
 
 <button on:click={addRandomValue}>Add random value to chart</button>
+
+<button class="inline" on:click={() => {
+    console.log('Clear chart...');
+    input = [];
+    chart.update();
+}}>Clear chart</button>
