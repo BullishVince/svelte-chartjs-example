@@ -4,6 +4,7 @@
 import {onMount, afterUpdate} from 'svelte';
 
 export let input;
+export let labels = [1,2];
 let chart;
 
 function createChart(chartType, data) {
@@ -11,7 +12,7 @@ function createChart(chartType, data) {
     chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [1,2,3,4,5,6,7],
+            labels: labels,
             datasets: [{
                 label: 'My First Dataset',
                 data: input,
@@ -23,13 +24,9 @@ function createChart(chartType, data) {
     });
 }
 
-export function addValue(value) {
-    console.log(`update chart with value ${value}`);
-    chart.update();
-}
-
 export function addRandomValue() {
-    input.push(19);
+    input.push(Math.random()*100);
+    labels.push(labels.length + 1);
     chart.update();
     console.log("add random value...");
 }

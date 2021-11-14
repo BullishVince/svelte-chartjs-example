@@ -3,7 +3,7 @@
     let chartComponent;
 
     let settings = {
-        input: [1,2,3,2,12,17,7,2,10,4,24,20]
+        input: [1,5]
     };
 </script>
 
