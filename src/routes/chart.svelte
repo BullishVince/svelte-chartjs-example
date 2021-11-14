@@ -2,9 +2,9 @@
 
 <script>
 import {onMount, afterUpdate} from 'svelte';
+import _ from 'lodash';
 
 export let input = [];
-let latestValue;
 export let labels = [1,2];
 let chart;
 
@@ -62,7 +62,7 @@ export function addRandomValue() {
 export function addValue(value) {
     input.push(value);
     labels.push(labels.length + 1);
-    latestValue = value;
+    chart.update();
 }
 
 onMount(createChart);
