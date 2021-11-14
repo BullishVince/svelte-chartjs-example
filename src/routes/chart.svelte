@@ -3,7 +3,7 @@
 <script>
 import {onMount, afterUpdate} from 'svelte';
 
-export let input;
+export let input = [];
 export let labels = [1,2];
 let chart;
 
@@ -17,8 +17,7 @@ function createChart(chartType, data) {
                 label: 'My First Dataset',
                 data: input,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                borderColor: 'rgb(0, 0, 255)'
             }]
         }
     });
@@ -28,7 +27,14 @@ export function addRandomValue() {
     input.push(Math.random()*100);
     labels.push(labels.length + 1);
     chart.update();
-    console.log("add random value...");
+    //console.log(input);
+}
+
+export function addValue(value) {
+    input.push(value);
+    labels.push(labels.length + 1);
+    chart.update();
+    //console.log(input);
 }
 
 onMount(createChart);
