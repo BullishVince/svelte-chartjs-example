@@ -20,7 +20,36 @@ function createChart(chartType, data) {
                 fill: false,
                 borderColor: 'rgb(0, 0, 255)'
             }]
-        }
+        },
+        options: {
+            plugins: {
+                zoom: {
+                    limits: {
+                        x: {min: -100, max: 100, minRange: 1},
+                        y: {min: -100, max: 100, minRange: 1}
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'y',
+                    },
+                    zoom: {
+                        wheel: {
+                        enabled: true,
+                        },
+                        pinch: {
+                        enabled: true
+                        },
+                        mode: 'xy',
+                    onZoomComplete({chart}) {
+                        // This update is needed to display up to date zoom level in the title.
+                        // Without this, previous zoom level is displayed.
+                        // The reason is: title uses the same beforeUpdate hook, and is evaluated before zoom.
+                        chart.update('none');
+                        }
+                    }
+                },
+            }
+        },
     });
 }
 
@@ -46,7 +75,5 @@ afterUpdate(() => {
 <button on:click={addRandomValue}>Add random value to chart</button>
 
 <button class="inline" on:click={() => {
-    console.log('Clear chart...');
-    input = [];
-    chart.update();
-}}>Clear chart</button>
+    chart.resetZoom();
+}}>Reset chart</button>
